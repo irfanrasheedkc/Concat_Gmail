@@ -24,5 +24,14 @@ def add_customer():
     else:
         return jsonify({"message": "Invalid customer data"}), 400
 
+@app.route('/get_customers', methods=['GET'])
+def get_customers():
+    customer_list = list(customers.find({}, {'_id': 0}))  # Exclude '_id' field from response
+
+    if customer_list:
+        return jsonify(customer_list)
+    else:
+        return jsonify({"message": "No customers found"}), 404
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
