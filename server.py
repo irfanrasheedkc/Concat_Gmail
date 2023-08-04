@@ -1,6 +1,7 @@
 # Import modules
 from pymongo import MongoClient
 from flask import Flask, request, jsonify
+from send_email import send_email
 
 app = Flask(__name__)
 
@@ -24,14 +25,28 @@ def add_customer():
     else:
         return jsonify({"message": "Invalid customer data"}), 400
 
-@app.route('/get_customers', methods=['GET'])
-def get_customers():
-    customer_list = list(customers.find({}, {'_id': 0}))  # Exclude '_id' field from response
+@app.route('/send_emails', methods=['POST'])
+def send_emails():
+    data = request.json
+    subject = data.get('subject')
+    message_template = data.get('message')
 
-    if customer_list:
-        return jsonify(customer_list)
-    else:
+    if not subject or not message_template:
+        return jsonify({"message": "Subject and message are required"}), 400
+
+    customer_list = list(customers.find({}, {'_id': 0}))
+    print(customer_list)
+    if not customer_list:
         return jsonify({"message": "No customers found"}), 404
+
+    for customer in customer_list:
+        customer_name = customer.get('name', 'Customer')
+        personalized_message = message_template.replace('{customer_name}', customer_name)
+        customer_email = customer.get('email')
+        print(customer_email)
+        send_email(subject, personalized_message, customer_email)
+
+    return jsonify({"message": "Emails sent successfully"}), 201
 
 if __name__ == '__main__':
     app.run(debug=True)
