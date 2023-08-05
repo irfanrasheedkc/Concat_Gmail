@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flutter to HTML</title>
+  <style>
+    body {
+      background-color: #607d8b;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .title {
+      color: #000;
+      font-size: 40px;
+      font-weight: 800;
+      margin-bottom: 40px;
+    }
+
+    .input-container {
+      display: flex;
+      align-items: center;
+      border: 1px solid #fff;
+      border-radius: 10px;
+      height: 30px;
+      width: 400px;
+      margin-bottom: 25px;
+    }
+
+    .input-container input {
+      flex: 1;
+      height: 100%;
+      border: none;
+      background: #000;
+      padding: 0 10px;
+      color: #fff;
+    }
+
+    .submit-btn {
+      background-color: #000;
+      color: #f4f1f1;
+      border: none;
+      border-radius: 10px;
+      height: 30px;
+      width: 100px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="title">HOME</div>
+    <div class="input-container">
+      <input type="text" placeholder="Name">
+    </div>
+    <div class="input-container">
+      <input type="text" placeholder="Email-id">
+    </div>
+    <button class="submit-btn" onclick="submitForm()">Enter</button>
+  </div>
+
+  <script>
+    function submitForm() {
+      // Get the values entered in the input fields
+      var name = document.querySelector('input[placeholder="Name"]').value;
+      var email = document.querySelector('input[placeholder="Email-id"]').value;
+
+      // Print the values to the console
+      console.log('Name:', name);
+      console.log('Email:', email);
+      
+      // Add your desired functionality here
+    }
+  </script>
+</body>
+</html>
