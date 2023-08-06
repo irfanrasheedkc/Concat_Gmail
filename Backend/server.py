@@ -1,7 +1,7 @@
 # Import modules
 from pymongo import MongoClient
 from flask import Flask, request, jsonify
-from send_email import send_email
+from Backend.send_email import send_email
 from flask_cors import CORS
 
 app = Flask(__name__)
