@@ -54,6 +54,14 @@
     }
   </style>
 </head>
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Flutter to HTML</title>
+  <style>
+    /* ... (Your existing CSS styles) ... */
+  </style>
+</head>
 <body>
   <div class="container">
     <div class="title">Add Customer</div>
@@ -64,30 +72,40 @@
       <input type="text" placeholder="Email-id">
     </div>
     <button class="submit-btn" onclick="submitForm()">Enter</button>
+    <p id="responseMessage" style="margin-top: 20px; color: #fff;"></p>
   </div>
 
   <script>
     function submitForm() {
-      // Get the values entered in the input fields
-      var name = document.querySelector('input[placeholder="Name"]').value;
-      var email = document.querySelector('input[placeholder="Email-id"]').value;
+      var nameInput = document.querySelector('input[placeholder="Name"]');
+      var emailInput = document.querySelector('input[placeholder="Email-id"]');
+      var responseMessage = document.getElementById('responseMessage');
 
-      // Print the values to the console
-      console.log('Name:', name);
-      console.log('Email:', email);
+      var name = nameInput.value;
+      var email = emailInput.value;
+
       fetch('http://localhost:5000/add_customer', {
-    method: 'POST',
-    headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({ "name": name,"email":email })
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ "name": name, "email": email })
       })
-   .then(response => response.json())
-   .then(response => console.log(JSON.stringify(response)))
-      
-      // Add your desired functionality here
+      .then(response => response.json())
+      .then(data => {
+        console.log(JSON.stringify(data));
+        responseMessage.textContent = data.message;
+        nameInput.value = ''; // Clear the name input field
+        emailInput.value = ''; // Clear the email input field
+      })
+      .catch(error => {
+        console.error('Error:', error);
+        responseMessage.textContent = 'An error occurred.';
+      });
     }
   </script>
 </body>
+</html>
+
 </html>
