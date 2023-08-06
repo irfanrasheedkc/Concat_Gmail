@@ -10,6 +10,7 @@ Customer Mailer is a powerful and intuitive web application designed to enhance 
 # Team Name - Team #10
 
 # Link To Video - 
+[![Watch the video](https://img.youtube.com/vi/sX4alpBhnDs/0.jpg)](https://www.youtube.com/watch?v=sX4alpBhnDs)
 
 # How the tool works
 
