@@ -2,8 +2,11 @@
 from pymongo import MongoClient
 from flask import Flask, request, jsonify
 from send_email import send_email
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+CORS(app, origins='*')
 
 # Set up the MongoDB client and connect to the database
 client = MongoClient("mongodb+srv://irfanrasheedkc:gTo5RnpsY7mpL2BZ@cluster0.mznznpy.mongodb.net/?retryWrites=true&w=majority")
@@ -14,7 +17,8 @@ customers = db['Customers']
 def add_customer():
     # Get customer data from the request
     customer_data = request.json  # Assuming the request is sending JSON data
-
+    print("data is :")
+    print(customer_data)
     if customer_data:
         # Insert customer data into the 'Customers' collection
         result = customers.insert_one(customer_data)
