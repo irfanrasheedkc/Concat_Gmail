@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Gmail</title>
+    <style>
+        body {
+            background-color: #607d8b;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .title {
+            color: #000;
+            font-size: 40px;
+            font-weight: 800;
+            margin-bottom: 20px;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .input-container input,
+        .input-container textarea {
+            width: 80%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            background-color: #000;
+            color: #f4f1f1;
+            border: none;
+            border-radius: 10px;
+            height: 40px;
+            width: 200px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Compose Gmail</div>
+        <div class="input-container">
+            <input id="subject" type="text" placeholder="Subject">
+        </div>
+        <div class="input-container">
+            <textarea id="gmailTemplate" placeholder="Type your Gmail template here"></textarea>
+        </div>
+        <button class="submit-btn" onclick="sendGmail()">Send Gmail</button>
+    </div>
+
+    <script>
+        function sendGmail() {
+            var subject = document.getElementById('subject').value;
+            var gmailTemplate = document.getElementById('gmailTemplate').value;
+            
+            // You can implement the logic to send the Gmail template to the API here
+            // For example, using the fetch API
+
+            fetch('http://localhost:5000/send_emails', {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ "subject": subject, "message": gmailTemplate })
+            })
+            .then(response => response.json())
+            .then(response => console.log(JSON.stringify(response)))
+        }
+    </script>
+</body>
+</html>
