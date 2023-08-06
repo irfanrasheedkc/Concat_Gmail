@@ -52,5 +52,15 @@ def send_emails():
 
     return jsonify({"message": "Emails sent successfully"}), 201
 
+@app.route('/view_customers', methods=['GET'])
+def view_customers():
+    # Get all customer details from the database
+    customer_list = list(customers.find({}, {'_id': 0}))
+
+    if not customer_list:
+        return jsonify({"message": "No customers found"}), 404
+
+    return jsonify(customer_list), 200
+
 if __name__ == '__main__':
     app.run(debug=True)

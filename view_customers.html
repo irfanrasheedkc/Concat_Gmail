@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Customers</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Customer List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody id="customerTableBody">
+                <!-- Customer data will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        // Fetch customer data from the Flask API
+        fetch('http://localhost:5000/view_customers')
+            .then(response => response.json())
+            .then(data => {
+                const customerTableBody = document.getElementById('customerTableBody');
+                data.forEach(customer => {
+                    const row = document.createElement('tr');
+                    const nameCell = document.createElement('td');
+                    const emailCell = document.createElement('td');
+
+                    nameCell.textContent = customer.name;
+                    emailCell.textContent = customer.email;
+
+                    row.appendChild(nameCell);
+                    row.appendChild(emailCell);
+                    customerTableBody.appendChild(row);
+                });
+            })
+            .catch(error => {
+                console.error('Error fetching customer data:', error);
+            });
+    </script>
+</body>
+</html>
